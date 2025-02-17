@@ -1,0 +1,9 @@
+
+
+
+
+
+enum AppRoute {
+  login,
+  register
+}

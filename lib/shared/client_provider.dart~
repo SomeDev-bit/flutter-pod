@@ -1,0 +1,17 @@
+import 'package:dio/dio.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttermangsir/constants/apis.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+part 'client_provider.g.dart';
+
+@riverpod
+Dio client(Ref ref) {
+  return Dio(BaseOptions(
+    baseUrl: 'https://67ac6a265853dfff53da9a85.mockapi.io',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    }
+  ));
+}

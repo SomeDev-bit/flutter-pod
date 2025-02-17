@@ -1,0 +1,26 @@
+class Sample{
+  String title;
+  String image;
+  String subtitle;
+
+  Sample({
+    required this.title,
+    required this.image,
+    required this.subtitle
+  });
+  factory Sample.fromJson(Map<String, dynamic> json){
+    return Sample(
+        title: json['title'] ?? '',
+        image: json['image'] ?? '',
+        subtitle: json['subtitle'] ?? ''
+    );
+  }
+}
+
+final g = {
+  'title': 'sdjkslkjs'
+};
+
+List<Sample> samples = List.generate(25, (index){
+  return Sample.fromJson(g);
+});
