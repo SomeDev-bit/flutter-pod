@@ -38,6 +38,9 @@ class ApiError{
            case 405:
              errMessage = 'method not allowed';
 
+           case 409:
+             errMessage = 'user already exist';
+
            case 500:
              errMessage = 'server error';
 

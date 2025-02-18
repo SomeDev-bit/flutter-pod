@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttermangsir/common_widgets/toast_show.dart';
 import 'package:fluttermangsir/providers/login_provider.dart';
 import 'package:fluttermangsir/routes/route_enum.dart';
 import 'package:fluttermangsir/shared/validators.dart';
@@ -19,10 +20,22 @@ class _LoginState extends ConsumerState<Login> {
   final _form = GlobalKey<FormBuilderState>();
   @override
   Widget build(BuildContext context) {
+
+    ref.listen(loginProviderProvider, (prev, next){
+      next.maybeWhen(
+          data: (d) => showToast(context, 'successfully login'),
+          error: (err,st) => showToast(context, '$err'),
+          orElse: () => null
+      );
+    });
+
+
     final pass = ref.watch(passShowProvider(id: 1));
     final mode = ref.watch(validateModeProvider(id: 1));
     final loginState = ref.watch(loginProviderProvider);
-    print(loginState);
+
+
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Login Page'),
@@ -70,7 +83,7 @@ class _LoginState extends ConsumerState<Login> {
                   ],
                 ),
                 const SizedBox(height: 30,),
-                ElevatedButton(onPressed: (){
+                ElevatedButton( onPressed: loginState.isLoading ? null: (){
                   FocusScope.of(context).unfocus();
                   if(_form.currentState!.saveAndValidate(focusOnInvalid: false)){
                     final map = _form.currentState!.value;
@@ -80,7 +93,7 @@ class _LoginState extends ConsumerState<Login> {
 
                   }
 
-                }, child: Text('Submit'))
+                }, child: loginState.isLoading ? CircularProgressIndicator() :Text('Submit'))
               ],
             )
         ),

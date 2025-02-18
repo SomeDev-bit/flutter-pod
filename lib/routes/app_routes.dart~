@@ -1,6 +1,5 @@
 import 'package:fluttermangsir/pages/auth/login.dart';
 import 'package:fluttermangsir/pages/auth/register.dart';
-import 'package:fluttermangsir/pages/product/product_list.dart';
 import 'package:fluttermangsir/providers/user_state_provider.dart';
 import 'package:fluttermangsir/routes/route_enum.dart';
 import 'package:go_router/go_router.dart';
@@ -13,13 +12,14 @@ part 'app_routes.g.dart';
 @riverpod
 GoRouter router(Ref ref) {
   final userState = ref.watch(userStateProvider);
+  print(userState);
   return GoRouter(
     initialLocation: '/',
       routes: [
         GoRoute(
             path: '/',
             builder: (context, state){
-              return userState.token == 'no-token' ? Login(): ProductList();
+              return Login();
             }
         ),
         GoRoute(

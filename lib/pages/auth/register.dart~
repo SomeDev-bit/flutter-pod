@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fluttermangsir/common_widgets/toast_show.dart';
-import 'package:fluttermangsir/providers/sign_up_provider.dart';
 import 'package:fluttermangsir/shared/validators.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:go_router/go_router.dart';
@@ -19,25 +17,8 @@ class _RegisterState extends ConsumerState<Register> {
   final _form = GlobalKey<FormBuilderState>();
   @override
   Widget build(BuildContext context) {
-
-
-    ref.listen(signUpProvider, (prev, next){
-      next.maybeWhen(
-          data: (d) {
-            context.pop();
-            showToast(context, 'successfully registered');
-          },
-          error: (err,st) => showToast(context, '$err'),
-          orElse: () => null
-      );
-    });
-
-
-
     final pass = ref.watch(passShowProvider(id: 2));
     final mode = ref.watch(validateModeProvider(id: 2));
-    final signUpState = ref.watch(signUpProvider);
-
     return Scaffold(
       appBar: AppBar(
         title: Text('SignUp Page'),
@@ -95,18 +76,18 @@ class _RegisterState extends ConsumerState<Register> {
                   ],
                 ),
                 const SizedBox(height: 30,),
-                ElevatedButton(onPressed: signUpState.isLoading ? null: (){
+                ElevatedButton(onPressed: (){
                   FocusScope.of(context).unfocus();
                   if(_form.currentState!.saveAndValidate(focusOnInvalid: false)){
                     final map = _form.currentState!.value;
-                    ref.read(signUpProvider.notifier).registerUser(map);
+                    print(map);
 
                   }else{
                     ref.read(validateModeProvider(id: 2).notifier).change();
 
                   }
 
-                }, child: signUpState.isLoading ? CircularProgressIndicator(): Text('Submit'))
+                }, child: Text('Submit'))
               ],
             )
         ),

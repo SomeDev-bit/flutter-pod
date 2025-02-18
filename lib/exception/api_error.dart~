@@ -1,67 +1,62 @@
+
+
+
 import 'package:dio/dio.dart';
 
-class ApiError implements Exception {
-  final String errMessage;
+class ApiError{
 
-  // Named constructor that takes a DioException and returns an ApiError instance
-  ApiError._(this.errMessage);
+  late String errMessage;
 
-  factory ApiError.errorCheck(DioException error) {
-    String message = "An unexpected error occurred";
 
-    switch (error.type) {
-      case DioExceptionType.connectionTimeout:
-        message = 'Connection timeout!';
-        break;
-      case DioExceptionType.sendTimeout:
-        message = 'Send timeout!';
-        break;
-      case DioExceptionType.receiveTimeout:
-        message = 'Receive timeout!';
-        break;
-      case DioExceptionType.badCertificate:
-        message = 'Bad certificate!';
-        break;
+   ApiError.errorCheck(DioException error){
+     switch(error.type){
+       case DioExceptionType.connectionTimeout:
+         errMessage = 'connection timeout !';
+       case DioExceptionType.sendTimeout:
+         errMessage = 'connection sendTimeout !';
+       case DioExceptionType.receiveTimeout:
+         errMessage = 'connection receiveTimeout !';
+       case DioExceptionType.badCertificate:
+         errMessage = 'bad certificate';
 
-      case DioExceptionType.badResponse:
-        switch (error.response?.statusCode) {
-          case 404:
-            message = 'Page not found!';
-            break;
-          case 413:
-            message = 'File size is too large!';
-            break;
-          case 400:
-            message = '${error.response?.data}';
-            break;
-          case 401:
-            message = 'You are not authorized!';
-            break;
-          case 405:
-            message = 'Method not allowed!';
-            break;
-          case 500:
-            message = 'Server error!';
-            break;
-          default:
-            message = 'Bad response from server!';
-        }
-        break;
+       case DioExceptionType.badResponse:
 
-      case DioExceptionType.cancel:
-        message = 'Request was canceled!';
-        break;
-      case DioExceptionType.connectionError:
-        message = 'Please check your connection!';
-        break;
-      case DioExceptionType.unknown:
-        message = 'An unknown error occurred!';
-        break;
-    }
+         switch(error.response?.statusCode){
 
-    return ApiError._(message); // Return the ApiError with the message
+           case 404:
+             errMessage = 'Page Not Found';
+
+           case 413:
+             errMessage = 'File Size is too large';
+
+           case 400:
+             errMessage = '${error.response?.data}';
+
+           case 401:
+             errMessage = 'you are not authorized';
+
+           case 405:
+             errMessage = 'method not allowed';
+
+           case 500:
+             errMessage = 'server error';
+
+
+         }
+
+
+
+
+
+
+       case DioExceptionType.cancel:
+         errMessage = 'Server Canceled it!';
+       case DioExceptionType.connectionError:
+         errMessage = 'please check your connection !';
+       case DioExceptionType.unknown:
+         errMessage = 'please check your connection !';
+     }
   }
 
-  @override
-  String toString() => errMessage;
+
 }

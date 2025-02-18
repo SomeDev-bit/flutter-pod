@@ -22,6 +22,16 @@ Future<Map<String, dynamic>> loginUser (Map<String, dynamic> map) async{
   }
 }
 
+
+Future<void> registerUser (Map<String, dynamic> map) async{
+  try{
+   await dio.post(register, data: map);
+  }on DioException catch(err){
+
+    throw ApiError.errorCheck(err).errMessage;
+  }
+}
+
 }
 
 

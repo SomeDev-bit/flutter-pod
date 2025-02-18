@@ -1,6 +1,4 @@
-import 'dart:convert';
-
-import 'package:fluttermangsir/main.dart';
+import 'package:fluttermangsir/providers/user_state_provider.dart';
 import 'package:fluttermangsir/services/auth_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -18,7 +16,7 @@ class LoginProvider extends _$LoginProvider {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       final response = await ref.read(authServiceProvider).loginUser(map);
-      ref.read(boxProvider).put('user', jsonEncode(response));
+      ref.read(userStateProvider.notifier).addUser(response);
     });
   }
 }
