@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttermangsir/constants/apis.dart';
 import 'package:fluttermangsir/exception/api_error.dart';
-import 'package:fluttermangsir/models/product.dart';
 import 'package:fluttermangsir/shared/dio_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -14,10 +13,10 @@ class ProductService{
   final Dio dio;
   ProductService(this.dio);
 
-  Future<List<Product>> getProducts() async{
+  Future loginUser () async{
     try{
       final response = await dio.get(products);
-      return (response.data as List).map((e) => Product.fromJson(e)).toList();
+      return response.data;
     }on DioException catch(err){
       throw ApiError.errorCheck(err).errMessage;
     }

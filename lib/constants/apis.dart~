@@ -3,8 +3,7 @@
 
 
 //baseUrl
-const  String base = 'https://backened-fn4j.onrender.com';
-const  String baseUrl = '$base/api';
+const  String baseUrl = 'https://backened-fn4j.onrender.com/api';
 
 
 

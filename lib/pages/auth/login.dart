@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttermangsir/common_widgets/toast_show.dart';
-import 'package:fluttermangsir/providers/login_provider.dart';
+import 'package:fluttermangsir/providers/auth/login_provider.dart';
 import 'package:fluttermangsir/routes/route_enum.dart';
 import 'package:fluttermangsir/shared/validators.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
