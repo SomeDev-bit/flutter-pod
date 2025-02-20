@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttermangsir/common_widgets/toast_show.dart';
 import 'package:fluttermangsir/providers/product/product_provider.dart';
 import 'package:fluttermangsir/routes/route_enum.dart';
 import 'package:go_router/go_router.dart';
@@ -10,7 +11,26 @@ class AdminProducts extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
+
     final productState = ref.watch(getProductsProvider);
+    final remState = ref.watch(productsStateProvider);
+
+    ref.listen(productsStateProvider, (prev, next){
+      next.maybeWhen(
+          data: (d) {
+            ref.invalidate(getProductsProvider);
+            context.pop();
+            showToast(context, 'successfully product remove');
+          },
+          error: (err,st) {
+            context.pop();
+            showToast(context, '$err');
+          },
+          orElse: () => null
+      );
+    });
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Products List'),
@@ -46,12 +66,17 @@ class AdminProducts extends ConsumerWidget {
                                           title: Text('Are you sure ?', style: TextStyle(fontSize: 18),),
                                           content: Text('You want to remove this product'),
                                           actions: [
-                                            TextButton(onPressed: (){
+                                            TextButton(
+                                                onPressed: (){
+
                                               context.pop();
                                             }, child: Text('Cancel')),
-                                            TextButton(onPressed: (){
-                                              context.pop();
-                                            }, child: Text('Confirm')),
+                                            TextButton(
+                                                onPressed: (){
+                                                ref.read(productsStateProvider.notifier).removeProduct(id: product.id);
+                                            },
+                                                child:   Text('Confirm')
+                                            ),
                                           ],
                                         );
                                       });

@@ -21,6 +21,13 @@ class _LoginState extends ConsumerState<Login> {
   @override
   Widget build(BuildContext context) {
 
+
+
+
+    final pass = ref.watch(passShowProvider(id: 1));
+    final mode = ref.watch(validateModeProvider(id: 1));
+    final loginState = ref.watch(loginProviderProvider);
+
     ref.listen(loginProviderProvider, (prev, next){
       next.maybeWhen(
           data: (d) => showToast(context, 'successfully login'),
@@ -28,13 +35,6 @@ class _LoginState extends ConsumerState<Login> {
           orElse: () => null
       );
     });
-
-
-    final pass = ref.watch(passShowProvider(id: 1));
-    final mode = ref.watch(validateModeProvider(id: 1));
-    final loginState = ref.watch(loginProviderProvider);
-
-
 
     return Scaffold(
       appBar: AppBar(
@@ -83,7 +83,8 @@ class _LoginState extends ConsumerState<Login> {
                   ],
                 ),
                 const SizedBox(height: 30,),
-                ElevatedButton( onPressed: loginState.isLoading ? null: (){
+                ElevatedButton(
+                    onPressed: loginState.isLoading ? null: (){
                   FocusScope.of(context).unfocus();
                   if(_form.currentState!.saveAndValidate(focusOnInvalid: false)){
                     final map = _form.currentState!.value;

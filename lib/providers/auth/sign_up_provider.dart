@@ -1,4 +1,4 @@
-import 'package:fluttermangsir/services/auth_service.dart';
+import 'package:fluttermangsir/services/auth/auth_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'sign_up_provider.g.dart';

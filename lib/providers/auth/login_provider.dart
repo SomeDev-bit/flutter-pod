@@ -1,5 +1,5 @@
 import 'package:fluttermangsir/providers/user_state_provider.dart';
-import 'package:fluttermangsir/services/auth_service.dart';
+import 'package:fluttermangsir/services/auth/auth_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'login_provider.g.dart';
