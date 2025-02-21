@@ -1,5 +1,7 @@
+import 'package:fluttermangsir/models/product.dart';
 import 'package:fluttermangsir/pages/admin/admin_products.dart';
 import 'package:fluttermangsir/pages/admin/product_add_form.dart';
+import 'package:fluttermangsir/pages/admin/product_edit_form.dart';
 import 'package:fluttermangsir/pages/auth/login.dart';
 import 'package:fluttermangsir/pages/auth/register.dart';
 import 'package:fluttermangsir/pages/product/product_list.dart';
@@ -43,6 +45,14 @@ GoRouter router(Ref ref) {
               name: AppRoute.productAdd.name,
               pageBuilder: (context, state){
                 return NoTransitionPage(child: const ProductAddForm());
+              },
+            ),
+            GoRoute(
+              path: '/productEdit',
+              name: AppRoute.productEdit.name,
+              pageBuilder: (context, state){
+                final product = state.extra as Product;
+                return NoTransitionPage(child: ProductEditForm(product: product));
               },
             )
           ]

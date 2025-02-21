@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttermangsir/common_widgets/toast_show.dart';
+import 'package:fluttermangsir/constants/apis.dart';
+import 'package:fluttermangsir/models/product.dart';
 import 'package:fluttermangsir/providers/product/product_provider.dart';
 import 'package:fluttermangsir/shared/image_provider.dart';
 import 'package:fluttermangsir/shared/validators.dart';
@@ -12,20 +14,24 @@ import 'package:go_router/go_router.dart';
 
 const List<String> categories = ['mobile', 'laptop', 'tv', 'camera', 'clothes'];
 const List<String> brands = ['apple', 'samsung', 'oppo', 'hp', 'dell', 'gucci', 'adidas'];
-class ProductAddForm extends ConsumerStatefulWidget {
-  const ProductAddForm({super.key});
+
+
+class ProductEditForm extends ConsumerStatefulWidget {
+  final Product product;
+  const ProductEditForm({super.key, required this.product});
 
   @override
-  ConsumerState createState() => _ProductAddFormState();
+  ConsumerState createState() => _ProductEditFormState();
 }
 
-class _ProductAddFormState extends ConsumerState<ProductAddForm> {
+class _ProductEditFormState extends ConsumerState<ProductEditForm> {
   final _form = GlobalKey<FormBuilderState>();
   @override
   Widget build(BuildContext context) {
     final mode = ref.watch(validateModeProvider(id:3));
     final image = ref.watch(imageProviderProvider);
     final productState = ref.watch(productsStateProvider);
+
 
     ref.listen(productsStateProvider, (prev, next){
       next.maybeWhen(
@@ -50,8 +56,9 @@ class _ProductAddFormState extends ConsumerState<ProductAddForm> {
             children: [
               FormBuilderTextField(
                 name: 'title',
+                 initialValue: widget.product.title,
                 decoration: InputDecoration(
-                  hintText: 'Title'
+                    hintText: 'Title'
                 ),
                 validator: FormBuilderValidators.compose([
                   FormBuilderValidators.required(),
@@ -59,7 +66,8 @@ class _ProductAddFormState extends ConsumerState<ProductAddForm> {
               ),
               const SizedBox(height: 15,),
               FormBuilderTextField(
-                  name: 'price',
+                name: 'price',
+                initialValue: widget.product.price.toString(),
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                     hintText: 'Price'
@@ -72,7 +80,7 @@ class _ProductAddFormState extends ConsumerState<ProductAddForm> {
               const SizedBox(height: 15,),
               FormBuilderDropdown<String>(
                 name: 'category',
-                initialValue: 'mobile',
+                initialValue: widget.product.category,
                 validator: FormBuilderValidators.compose([
                   FormBuilderValidators.required(),
                 ]),
@@ -86,7 +94,7 @@ class _ProductAddFormState extends ConsumerState<ProductAddForm> {
 
               FormBuilderDropdown<String>(
                 name: 'brand',
-                initialValue: 'apple',
+                initialValue: widget.product.brand,
                 decoration: InputDecoration(
                 ),
                 items: brands.map((e){
@@ -101,9 +109,10 @@ class _ProductAddFormState extends ConsumerState<ProductAddForm> {
               ),
               const SizedBox(height: 15,),
               FormBuilderTextField(
-                  name: 'description',
+                name: 'description',
+                initialValue: widget.product.description,
                 decoration: InputDecoration(
-                    hintText: 'Description',
+                  hintText: 'Description',
                 ),
                 validator: FormBuilderValidators.compose([
                   FormBuilderValidators.required(),
@@ -113,18 +122,18 @@ class _ProductAddFormState extends ConsumerState<ProductAddForm> {
               const SizedBox(height: 25,),
 
               TextButton(
-                style: TextButton.styleFrom(
-                  padding: EdgeInsets.zero,
-                  shape: RoundedRectangleBorder()
-                ),
+                  style: TextButton.styleFrom(
+                      padding: EdgeInsets.zero,
+                      shape: RoundedRectangleBorder()
+                  ),
                   onPressed: (){
-                  ref.read(imageProviderProvider.notifier).pickAnImage();
+                    ref.read(imageProviderProvider.notifier).pickAnImage();
                   }, child: Container(
                 height: 100,
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black)
+                    border: Border.all(color: Colors.black)
                 ),
-                child:image == null ?  Center(child:  Text('pick an image')): Image.file(File(image.path)),
+                child:image == null ?  Image.network('$base/${widget.product.image}'): Image.file(File(image.path)),
               )),
 
               const SizedBox(height: 25,),
@@ -135,12 +144,10 @@ class _ProductAddFormState extends ConsumerState<ProductAddForm> {
                     if(_form.currentState!.saveAndValidate(focusOnInvalid: false)){
                       final map = _form.currentState!.value;
                       if(image == null){
-                        showToast(context, 'please select an image');
-
+                        ref.read(productsStateProvider.notifier).updateProduct(map: map, id: widget.product.id);
                       }else{
-                        ref.read(productsStateProvider.notifier).addProduct(map: map, image: image);
+                        ref.read(productsStateProvider.notifier).updateProduct(map: map, image: image, id: widget.product.id);
                       }
-
 
                     }else{
                       ref.read(validateModeProvider(id: 3).notifier).change();

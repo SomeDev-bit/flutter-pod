@@ -46,7 +46,7 @@ class ProductService{
           ...map,
           'image': await MultipartFile.fromFile(image.path)
         });
-        await dio.patch('$products/$id', data: formData);
+        await dio.patch(path)'$products/$id', data: formData);
       }
 
 
