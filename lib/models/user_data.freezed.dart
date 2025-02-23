@@ -12,8 +12,7 @@ part of 'user_data.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
-);
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 UserData _$UserDataFromJson(Map<String, dynamic> json) {
   return _UserData.fromJson(json);
@@ -62,26 +61,20 @@ class _$UserDataCopyWithImpl<$Res, $Val extends UserData>
     Object? role = null,
     Object? userId = null,
   }) {
-    return _then(
-      _value.copyWith(
-            token:
-                null == token
-                    ? _value.token
-                    : token // ignore: cast_nullable_to_non_nullable
-                        as String,
-            role:
-                null == role
-                    ? _value.role
-                    : role // ignore: cast_nullable_to_non_nullable
-                        as String,
-            userId:
-                null == userId
-                    ? _value.userId
-                    : userId // ignore: cast_nullable_to_non_nullable
-                        as String,
-          )
-          as $Val,
-    );
+    return _then(_value.copyWith(
+      token: null == token
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
+              as String,
+      role: null == role
+          ? _value.role
+          : role // ignore: cast_nullable_to_non_nullable
+              as String,
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
   }
 }
 
@@ -89,9 +82,8 @@ class _$UserDataCopyWithImpl<$Res, $Val extends UserData>
 abstract class _$$UserDataImplCopyWith<$Res>
     implements $UserDataCopyWith<$Res> {
   factory _$$UserDataImplCopyWith(
-    _$UserDataImpl value,
-    $Res Function(_$UserDataImpl) then,
-  ) = __$$UserDataImplCopyWithImpl<$Res>;
+          _$UserDataImpl value, $Res Function(_$UserDataImpl) then) =
+      __$$UserDataImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String token, String role, String userId});
@@ -102,9 +94,8 @@ class __$$UserDataImplCopyWithImpl<$Res>
     extends _$UserDataCopyWithImpl<$Res, _$UserDataImpl>
     implements _$$UserDataImplCopyWith<$Res> {
   __$$UserDataImplCopyWithImpl(
-    _$UserDataImpl _value,
-    $Res Function(_$UserDataImpl) _then,
-  ) : super(_value, _then);
+      _$UserDataImpl _value, $Res Function(_$UserDataImpl) _then)
+      : super(_value, _then);
 
   /// Create a copy of UserData
   /// with the given fields replaced by the non-null parameter values.
@@ -115,25 +106,20 @@ class __$$UserDataImplCopyWithImpl<$Res>
     Object? role = null,
     Object? userId = null,
   }) {
-    return _then(
-      _$UserDataImpl(
-        token:
-            null == token
-                ? _value.token
-                : token // ignore: cast_nullable_to_non_nullable
-                    as String,
-        role:
-            null == role
-                ? _value.role
-                : role // ignore: cast_nullable_to_non_nullable
-                    as String,
-        userId:
-            null == userId
-                ? _value.userId
-                : userId // ignore: cast_nullable_to_non_nullable
-                    as String,
-      ),
-    );
+    return _then(_$UserDataImpl(
+      token: null == token
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
+              as String,
+      role: null == role
+          ? _value.role
+          : role // ignore: cast_nullable_to_non_nullable
+              as String,
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
   }
 }
 
@@ -184,16 +170,17 @@ class _$UserDataImpl implements _UserData {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$UserDataImplToJson(this);
+    return _$$UserDataImplToJson(
+      this,
+    );
   }
 }
 
 abstract class _UserData implements UserData {
-  const factory _UserData({
-    final String token,
-    final String role,
-    final String userId,
-  }) = _$UserDataImpl;
+  const factory _UserData(
+      {final String token,
+      final String role,
+      final String userId}) = _$UserDataImpl;
 
   factory _UserData.fromJson(Map<String, dynamic> json) =
       _$UserDataImpl.fromJson;

@@ -12,15 +12,13 @@ String _$userStateHash() => r'2103d79c24ecbf56030de547ae17e290e77cf2a3';
 @ProviderFor(UserState)
 final userStateProvider =
     AutoDisposeNotifierProvider<UserState, UserData>.internal(
-      UserState.new,
-      name: r'userStateProvider',
-      debugGetCreateSourceHash:
-          const bool.fromEnvironment('dart.vm.product')
-              ? null
-              : _$userStateHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
+  UserState.new,
+  name: r'userStateProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$userStateHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
 
 typedef _$UserState = AutoDisposeNotifier<UserData>;
 // ignore_for_file: type=lint

@@ -13,6 +13,12 @@ Future<List<Product>> getProducts (Ref ref) async {
 
 
 @riverpod
+Future<Product> getProduct (Ref ref, {required String id}) async {
+  return ref.read(productServiceProvider).getProduct(id);
+}
+
+
+@riverpod
 class ProductsState extends _$ProductsState {
   @override
   FutureOr<void> build()  {
