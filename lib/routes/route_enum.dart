@@ -9,4 +9,5 @@ enum AppRoute {
   adminPro,
   productAdd,
   productEdit,
+  productDetail,
 }

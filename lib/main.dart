@@ -24,13 +24,12 @@ void main () async{
   await Hive.initFlutter();
   Hive.registerAdapter(CartAdapter());
   final bx = await Hive.openBox('box');
-  final cartBx = await Hive.openBox('carts');
+  final cartBx = await Hive.openBox<Cart>('carts');
 
   runApp( ProviderScope(
       overrides: [
         boxProvider.overrideWithValue(bx),
-       // cartsProvider.overrideWithValue(cartBx)
-
+       cartsProvider.overrideWithValue(cartBx.values.toList())
       ],
       child: const  Home()));
 }

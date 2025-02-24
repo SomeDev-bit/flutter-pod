@@ -16,7 +16,19 @@ class Cart extends HiveObject {
    String image;
 
   @HiveField(3)
-   int price;
+    int price;
 
-  Cart({required this.qty, required this.title, required this.image, required this.price});
+  @HiveField(4)
+   String id;
+
+   Cart({required this.qty, required this.title, required this.image, required this.price, required this.id});
+
+   factory Cart.empty(){
+     return Cart(qty: 0, title: '', image: '', price: 0, id: 'no-id');
+   }
+
+   Cart copyWith (int qt){
+     return Cart(qty: qt, title: title, image: image, price: price, id: id);
+   }
+
 }

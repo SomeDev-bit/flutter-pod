@@ -5,6 +5,8 @@ import 'package:fluttermangsir/pages/product/widgets/drawer_widget.dart';
 import 'package:fluttermangsir/providers/product/product_provider.dart';
 import 'package:fluttermangsir/providers/user_state_provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fluttermangsir/routes/route_enum.dart';
+import 'package:go_router/go_router.dart';
 
 class ProductList extends ConsumerWidget {
   const ProductList({super.key});
@@ -36,28 +38,33 @@ class ProductList extends ConsumerWidget {
                     ),
                     itemBuilder: (c, index) {
                       final product = data[index];
-                      return GridTile(
-                          footer: Container(
-                            padding: EdgeInsets.only(left: 10),
-                            color: Colors.black.withOpacity(0.5),
-                          height: 40,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            //crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(child: Text(product.title,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(color: Colors.white),)),
-                              Expanded(child: Text('Price:- ${product.price}', style: TextStyle(color: Colors.white),))
-                            ],
+                      return InkWell(
+                        onTap: (){
+                          context.pushNamed(AppRoute.productDetail.name, extra: product.id);
+                        },
+                        child: GridTile(
+                            footer: Container(
+                              padding: EdgeInsets.only(left: 10),
+                              color: Colors.black.withOpacity(0.5),
+                            height: 40,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              //crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Expanded(child: Text(product.title,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(color: Colors.white),)),
+                                Expanded(child: Text('Price:- ${product.price}', style: TextStyle(color: Colors.white),))
+                              ],
+                            ),
                           ),
+                            child: CachedNetworkImage(
+                              fit: BoxFit.cover,
+                              errorWidget: (c,s,d) => Image.asset('assets/images/chris-lawton-zvKx6ixUhWQ-unsplash.jpg'),
+                            imageUrl:'$base/${product.image}',
                         ),
-                          child: CachedNetworkImage(
-                            fit: BoxFit.cover,
-                            errorWidget: (c,s,d) => Image.asset('assets/images/chris-lawton-zvKx6ixUhWQ-unsplash.jpg'),
-                          imageUrl:'$base/${product.image}',
-                      ),
+                        ),
                       );
                     }
                 ),
