@@ -17,6 +17,11 @@ class ProductList extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Product List'),
+        actions: [
+          IconButton(onPressed: (){
+            context.pushNamed(AppRoute.cart.name);
+          }, icon: Icon(Icons.shopping_bag_outlined))
+        ],
       ),
       drawer: DrawerWidget(),
       body: Padding(

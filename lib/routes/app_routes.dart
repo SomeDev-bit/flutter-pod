@@ -4,6 +4,7 @@ import 'package:fluttermangsir/pages/admin/product_add_form.dart';
 import 'package:fluttermangsir/pages/admin/product_edit_form.dart';
 import 'package:fluttermangsir/pages/auth/login.dart';
 import 'package:fluttermangsir/pages/auth/register.dart';
+import 'package:fluttermangsir/pages/cart/cart_page.dart';
 import 'package:fluttermangsir/pages/product/product_detail.dart';
 import 'package:fluttermangsir/pages/product/product_list.dart';
 import 'package:fluttermangsir/providers/user_state_provider.dart';
@@ -50,6 +51,13 @@ GoRouter router(Ref ref) {
                     },
                   )
                 ]
+            ),
+            GoRoute(
+              path: 'cart',
+              name: AppRoute.cart.name,
+              pageBuilder: (context, state){
+                return NoTransitionPage(child: const CartPage());
+              },
             ),
             GoRoute(
                 path: 'productDetail',
