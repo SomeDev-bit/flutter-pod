@@ -9,6 +9,7 @@ class CartPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final carts = ref.watch(cartListProvider);
+    final totalAmount = ref.watch(cartListProvider.notifier).totalAmount;
     return Scaffold(
       appBar: AppBar(
         title: Text('Cart Page'),
@@ -17,25 +18,39 @@ class CartPage extends ConsumerWidget {
         padding: const EdgeInsets.all(20.0),
         child: carts.isEmpty ? Center(child: Text('Cart is Empty'),) : Stack(
           children: [
-            ListView.builder(
+            ListView.separated(
+              separatorBuilder: (c, i) => Divider(),
               itemCount: carts.length,
-              itemBuilder: (c, index) => ListTile(
-                title: Text(carts[index].title),
-                subtitle: Text('Price: ${carts[index].price}'),
-                trailing: SizedBox(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(onPressed: (){
-
-                      }, icon: Icon(Icons.remove)),
-                      Text('${carts[index].qty}', style: TextStyle(fontSize: 16),),
-                      IconButton(onPressed: (){
-
-                      }, icon: Icon(Icons.add)),
-                    ],
-                  ) ,
-                ),
+              itemBuilder: (c, index) => Stack(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: ListTile(
+                      title: Text(carts[index].title),
+                      subtitle: Text('Price: ${carts[index].price}'),
+                      trailing: SizedBox(
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(onPressed: (){
+                              ref.read(cartListProvider.notifier).singleRemove(carts[index]);
+                            }, icon: Icon(Icons.remove)),
+                            Text('${carts[index].qty}', style: TextStyle(fontSize: 16),),
+                            IconButton(onPressed: (){
+                              ref.read(cartListProvider.notifier).singleAdd(carts[index]);
+                            }, icon: Icon(Icons.add)),
+                          ],
+                        ) ,
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    right: 0,
+                      top: 0,
+                      child: IconButton(onPressed: (){
+                        ref.read(cartListProvider.notifier).removeCart(carts[index]);
+                      }, icon: Icon(Icons.close)))
+                ],
               ),
             ),
             Positioned(
@@ -47,7 +62,7 @@ class CartPage extends ConsumerWidget {
                       children: [
                        Text('Total Amount: - '),
 
-                       // Text('$totalAmount'),
+                        Text('$totalAmount'),
                       ],
                     ),
                     ElevatedButton(

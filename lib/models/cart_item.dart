@@ -21,8 +21,23 @@ class CartItem extends HiveObject {
   @HiveField(4)
    String id;
 
-   CartItem({required this.qty, required this.title, required this.image, required this.price, required this.id});
+  @HiveField(5)
+  String description;
 
+   CartItem({required this.qty, required this.title, required this.image, required this.price, required this.id, required this.description});
+
+
+   Map<String, dynamic>  toMap (){
+     return {
+       'title': title,
+       'description': description,
+       'price': price,
+       'category': '',
+       'brand': '',
+       'image': image,
+       'qty': qty
+     };
+   }
 
 
 }

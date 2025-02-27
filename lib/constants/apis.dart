@@ -12,6 +12,9 @@ const  String baseUrl = '$base/api';
 const String products = '/products';
 
 
+//orders
+const String orders = '/orders';
+
 //auth
 const String login = '/users/login';
 const String register = '/users/register';
