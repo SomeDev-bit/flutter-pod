@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:fluttermangsir/models/cart.dart';
+import 'package:fluttermangsir/models/cart_item.dart';
 import 'package:fluttermangsir/routes/app_routes.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -15,16 +15,16 @@ Box box (Ref ref) {
 }
 
 @riverpod
-List<Cart> carts(Ref ref) {
+List<CartItem> carts(Ref ref) {
   return  [];
 }
 
 void main () async{
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  Hive.registerAdapter(CartAdapter());
+  Hive.registerAdapter(CartItemAdapter());
   final bx = await Hive.openBox('box');
-  final cartBx = await Hive.openBox<Cart>('carts');
+  final cartBx = await Hive.openBox<CartItem>('carts');
 
   runApp( ProviderScope(
       overrides: [

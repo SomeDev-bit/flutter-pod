@@ -9,7 +9,6 @@ class CartPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final carts = ref.watch(cartListProvider);
-    final totalAmount = ref.watch(cartListProvider.notifier).totalAmount;
     return Scaffold(
       appBar: AppBar(
         title: Text('Cart Page'),
@@ -28,11 +27,11 @@ class CartPage extends ConsumerWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       IconButton(onPressed: (){
-                        ref.read(cartListProvider.notifier).singleRemove(carts[index]);
+
                       }, icon: Icon(Icons.remove)),
                       Text('${carts[index].qty}', style: TextStyle(fontSize: 16),),
                       IconButton(onPressed: (){
-                        ref.read(cartListProvider.notifier).singleAdd(carts[index]);
+
                       }, icon: Icon(Icons.add)),
                     ],
                   ) ,
@@ -48,7 +47,7 @@ class CartPage extends ConsumerWidget {
                       children: [
                        Text('Total Amount: - '),
 
-                        Text('$totalAmount'),
+                       // Text('$totalAmount'),
                       ],
                     ),
                     ElevatedButton(

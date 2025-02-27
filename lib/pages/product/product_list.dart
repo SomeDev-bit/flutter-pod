@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttermangsir/constants/apis.dart';
 import 'package:fluttermangsir/pages/product/widgets/drawer_widget.dart';
 import 'package:fluttermangsir/providers/product/product_provider.dart';
-import 'package:fluttermangsir/providers/user_state_provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluttermangsir/routes/route_enum.dart';
 import 'package:go_router/go_router.dart';

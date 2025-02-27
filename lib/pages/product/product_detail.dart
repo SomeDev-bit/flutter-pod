@@ -2,10 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttermangsir/constants/apis.dart';
-import 'package:fluttermangsir/models/cart.dart';
-import 'package:fluttermangsir/providers/cart/cart_provider.dart';
 import 'package:fluttermangsir/providers/product/product_provider.dart';
-import 'package:hive/hive.dart';
 
 
 class ProductDetail extends ConsumerWidget {
@@ -22,6 +19,7 @@ class ProductDetail extends ConsumerWidget {
             return Column(
               children: [
                 CachedNetworkImage(
+                  height: 200,
                   imageUrl: '$base/${data.image}',
                   placeholder: (context, url) => const CircularProgressIndicator(),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
@@ -33,7 +31,8 @@ class ProductDetail extends ConsumerWidget {
                 const SizedBox(height: 20,),
 
                 ElevatedButton(onPressed: (){
-                 ref.read(cartListProvider.notifier).setCart(data);
+
+
                 }, child: Text('Add To Cart'))
 
 

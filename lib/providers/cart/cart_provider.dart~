@@ -1,5 +1,5 @@
 import 'package:fluttermangsir/main.dart';
-import 'package:fluttermangsir/models/cart_item.dart';
+import 'package:fluttermangsir/models/cart.dart';
 import 'package:fluttermangsir/models/product.dart';
 
 
