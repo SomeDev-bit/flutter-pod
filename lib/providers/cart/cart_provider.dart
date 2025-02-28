@@ -1,6 +1,7 @@
 import 'package:fluttermangsir/main.dart';
 import 'package:fluttermangsir/models/cart_item.dart';
 import 'package:fluttermangsir/models/product.dart';
+import 'package:fluttermangsir/services/order/order_service.dart';
 import 'package:hive/hive.dart';
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -21,7 +22,7 @@ class CartList extends _$CartList {
       image: product.image,
       price: product.price,
       id: product.id,
-       description: product.description
+        description: product.description
     );
     if (state.isEmpty) {
       state.add(newCart);
@@ -35,7 +36,10 @@ class CartList extends _$CartList {
         state.add(newCart);
         Hive.box<CartItem>('carts').add(newCart);
       } else {
-        singleAdd(isExist);
+        if(isExist.isInBox){
+           singleAdd(isExist);
+        }
+
       }
     }
   }
@@ -60,13 +64,35 @@ class CartList extends _$CartList {
 
 
   void removeCart(CartItem cartItem) {
-
     cartItem.delete();
-    state.remove(cartItem);
-    state  = [...state];
+    state.removeAt(state.indexOf(cartItem));
+    state = [...state];
+  }
+
+
+  void clearCart() {
+    Hive.box<CartItem>('carts').clear();
+    state = [];
   }
 
 
   int get totalAmount => state.fold(0, (a, b) => a + b.qty * b.price);
 
+}
+
+
+@riverpod
+class CartMutation extends _$CartMutation {
+  @override
+  FutureOr<void> build() {
+
+  }
+
+  Future<void> createOrder(List<CartItem> carts, int totalAmount) async{
+    state = const AsyncLoading();
+    state = await AsyncValue.guard(() async{
+      await ref.read(orderServiceProvider).createOrder(carts, totalAmount);
+      ref.read(cartListProvider.notifier).clearCart();
+    });
+  }
 }

@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttermangsir/common_widgets/toast_show.dart';
 import 'package:fluttermangsir/constants/apis.dart';
 import 'package:fluttermangsir/providers/cart/cart_provider.dart';
 import 'package:fluttermangsir/providers/product/product_provider.dart';
@@ -36,7 +37,7 @@ class ProductDetail extends ConsumerWidget {
 
                 ElevatedButton(onPressed: (){
                    ref.read(cartListProvider.notifier).setCart(data);
-                   context.pushNamed(AppRoute.cart.name);
+                   showToast(context, 'successfully added to cart');
                 }, child: Text('Add To Cart'))
 
 

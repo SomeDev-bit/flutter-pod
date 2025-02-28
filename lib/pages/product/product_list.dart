@@ -4,6 +4,7 @@ import 'package:fluttermangsir/constants/apis.dart';
 import 'package:fluttermangsir/pages/product/widgets/drawer_widget.dart';
 import 'package:fluttermangsir/providers/product/product_provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fluttermangsir/providers/user_state_provider.dart';
 import 'package:fluttermangsir/routes/route_enum.dart';
 import 'package:go_router/go_router.dart';
 
@@ -13,6 +14,9 @@ class ProductList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final productState = ref.watch(getProductsProvider);
+    final user = ref.watch(userStateProvider);
+    print(user.userId);
+    print(user.token);
     return Scaffold(
       appBar: AppBar(
         title: Text('Product List'),

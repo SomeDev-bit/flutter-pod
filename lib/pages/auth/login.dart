@@ -52,6 +52,7 @@ class _LoginState extends ConsumerState<Login> {
                   decoration: InputDecoration(
                     hintText: 'Email'
                   ),
+
                   validator: FormBuilderValidators.compose([
                     FormBuilderValidators.required(),
                     FormBuilderValidators.email(),

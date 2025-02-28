@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:fluttermangsir/common_widgets/toast_show.dart';
 import 'package:fluttermangsir/providers/cart/cart_provider.dart';
 
 
@@ -10,6 +11,17 @@ class CartPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final carts = ref.watch(cartListProvider);
     final totalAmount = ref.watch(cartListProvider.notifier).totalAmount;
+    final cartState = ref.watch(cartMutationProvider);
+
+    ref.listen(cartMutationProvider, (prev, next) {
+      next.maybeWhen(
+          data: (d) => showToast(context, 'successfully order placed'),
+          error: (err,st) => showToast(context, '$err'),
+          orElse: () => null
+      );
+    });
+
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Cart Page'),
@@ -69,7 +81,9 @@ class CartPage extends ConsumerWidget {
                         style: ElevatedButton.styleFrom(
                           minimumSize: Size(360, 40)
                         ),
-                        onPressed: (){}, child: Text('Check Out')),
+                        onPressed: (){
+                          ref.read(cartMutationProvider.notifier).createOrder(carts, totalAmount);
+                        }, child: cartState.isLoading ? Center(child: CircularProgressIndicator()) : Text('Check Out')),
                   ],
                 ) )
           ],

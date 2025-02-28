@@ -32,8 +32,8 @@ class CartItem extends HiveObject {
        'title': title,
        'description': description,
        'price': price,
-       'category': '',
-       'brand': '',
+       'category': 'laptop',
+       'brand': 'apple',
        'image': image,
        'qty': qty
      };

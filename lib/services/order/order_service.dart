@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fluttermangsir/constants/apis.dart';
 import 'package:fluttermangsir/exception/api_error.dart';
 import 'package:fluttermangsir/models/cart_item.dart';
+import 'package:fluttermangsir/models/order_item.dart';
 import 'package:fluttermangsir/shared/dio_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -38,9 +39,10 @@ class OrderService{
   }
 
 
-  Future getOrders() async{
+  Future<List<OrderItem>> getOrders({required String userId}) async{
     try{
-
+    final response =   await dio.get('$orders/users/$userId');
+    return (response.data as List).map((e) => OrderItem.fromJson(e)).toList();
     }on DioException catch(err){
       throw ApiError.errorCheck(err).errMessage;
     }

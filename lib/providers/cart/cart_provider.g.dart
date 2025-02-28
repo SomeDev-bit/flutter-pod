@@ -6,7 +6,7 @@ part of 'cart_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$cartListHash() => r'fbf07c63d98fce2d509428477153467bf0f13f73';
+String _$cartListHash() => r'e50aaf6224ff2c2b3052b8c42c99e3e0a4a23a39';
 
 /// See also [CartList].
 @ProviderFor(CartList)
@@ -21,5 +21,20 @@ final cartListProvider =
 );
 
 typedef _$CartList = AutoDisposeNotifier<List<CartItem>>;
+String _$cartMutationHash() => r'8d91a4827ce9a20ec9ba90a86b8c944b42e40eb5';
+
+/// See also [CartMutation].
+@ProviderFor(CartMutation)
+final cartMutationProvider =
+    AutoDisposeAsyncNotifierProvider<CartMutation, void>.internal(
+  CartMutation.new,
+  name: r'cartMutationProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$cartMutationHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$CartMutation = AutoDisposeAsyncNotifier<void>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
