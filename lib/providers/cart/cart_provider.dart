@@ -12,6 +12,7 @@ part 'cart_provider.g.dart';
 class CartList extends _$CartList {
   @override
   List<CartItem> build() {
+    ref.keepAlive();
     return ref.watch(cartsProvider);
   }
 

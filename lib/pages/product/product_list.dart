@@ -15,8 +15,7 @@ class ProductList extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final productState = ref.watch(getProductsProvider);
     final user = ref.watch(userStateProvider);
-    print(user.userId);
-    print(user.token);
+    
     return Scaffold(
       appBar: AppBar(
         title: Text('Product List'),

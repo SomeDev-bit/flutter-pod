@@ -13,6 +13,8 @@ import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../pages/order/order_history.dart';
+
 part 'app_routes.g.dart';
 
 
@@ -67,6 +69,13 @@ GoRouter router(Ref ref) {
                 return NoTransitionPage(child: ProductDetail(id: productId));
               }, 
               
+            ),
+            GoRoute(
+                path: 'history',
+              name: AppRoute.history.name,
+              pageBuilder: (context, state){
+                return NoTransitionPage(child: const OrderHistory());
+              },
             )
           ]
         ),

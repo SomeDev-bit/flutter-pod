@@ -14,6 +14,9 @@ class DrawerWidget extends ConsumerWidget {
     return Drawer(
       child: ListView(
         children: [
+          // DrawerHeader(child: Column(children: [
+          //   Text(userState.userId),
+          // ])),
           if(userState.role == 'admin')  ListTile(
             leading: Icon(Icons.list),
             onTap: (){
@@ -21,6 +24,14 @@ class DrawerWidget extends ConsumerWidget {
               context.pushNamed(AppRoute.adminPro.name);
             },
             title: Text('Products List'),),
+
+
+          if(userState.role == 'user')  ListTile(
+            leading: Icon(Icons.list),
+            onTap: (){
+            context.pushNamed(AppRoute.history.name);
+            },
+            title: Text('Order History'),),
           ListTile(
             leading: Icon(Icons.exit_to_app),
             onTap: (){

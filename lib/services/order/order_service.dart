@@ -30,9 +30,10 @@ class OrderService{
   }
 
 
-  Future getUserOrders() async{
+  Future<List<OrderItem>> getUserOrders(String userId) async{
     try{
-
+      final response =   await dio.get('$orders/users/$userId');
+      return (response.data as List).map((e) => OrderItem.fromJson(e)).toList();
     }on DioException catch(err){
       throw ApiError.errorCheck(err).errMessage;
     }
